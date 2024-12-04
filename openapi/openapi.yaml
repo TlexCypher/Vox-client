@@ -1,0 +1,99 @@
+openapi: 3.0.3
+info:
+  title: Vox api
+  version: '1.0'
+servers:
+  - url: http://localhost:{port}
+    description: localhost api, not production
+    variables:
+      port:
+        default: '8000'
+        description: The port number of go-app.
+paths:
+  /healthcheck:
+    get:
+      summary: Health check
+      operationId: health-check
+      responses:
+        '200':
+          description: health check
+  /users:
+    get:
+      summary: Get all users
+      operationId: get-all-users
+      responses:
+        '200':
+          description: Get list of all registered users.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAllUsersResponse'
+        '500':
+          description: Failed to fetch users.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Create a new user
+      operationId: create-new-user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+      responses:
+        '201':
+          description: Create new user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateUserResponse'
+        '400':
+          description: Invalid request content.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Failed to create new user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    GetAllUsersResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            x-go-type: entity.User
+          description: list of all users.
+        message:
+          type: string
+          description: additional message for response.
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: error message.
+    CreateUserRequest:
+      type: object
+      properties:
+        username:
+          type: string
+          description: name for created user.
+        role:
+          type: string
+          description: role for created user.
+    CreateUserResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          x-go-type: valueobject.UserId
