@@ -17,6 +17,10 @@ paths:
       responses:
         '200':
           description: health check
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthCheckResponse'
   /users:
     get:
       summary: Get all users
@@ -64,6 +68,11 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    HealthCheckResponse:
+      type: object
+      properties:
+        data:
+          type: string
     GetAllUsersResponse:
       type: object
       properties:
