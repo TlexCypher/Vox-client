@@ -1,0 +1,19 @@
+version: '3.9'
+services:
+  node-app:
+    container_name: node-app
+    build: 
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - 5173:5173
+    volumes:
+      - type: volume
+        source: node-modules-volume
+        target: /node/app/node_modules
+    env_file:
+      ./.env
+    command: sh -c "yarn dev"
+
+volumes:
+  node-modules-volume:
