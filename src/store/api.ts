@@ -17,6 +17,12 @@ const injectedRtkApi = api.injectEndpoints({
         body: queryArg.createUserRequest,
       }),
     }),
+    getInventoryByUserId: build.query<
+      GetInventoryByUserIdApiResponse,
+      GetInventoryByUserIdApiArg
+    >({
+      query: (queryArg) => ({ url: `/inventory/${queryArg.userId}` }),
+    }),
   }),
   overrideExisting: false,
 });
@@ -32,14 +38,19 @@ export type PostUsersApiResponse =
 export type PostUsersApiArg = {
   createUserRequest: CreateUserRequest;
 };
+export type GetInventoryByUserIdApiResponse =
+  /** status 200 Success to get inventory information for a specific user. */ GetInventoriesResponse;
+export type GetInventoryByUserIdApiArg = {
+  userId: string;
+};
 export type HealthCheckResponse = {
   message?: string;
 };
 export type User = {
+  id: string;
+  username: string;
   /** User's role */
   role: "admin" | "operator";
-  /** User's name */
-  username: string;
 };
 export type GetAllUsersResponse = {
   /** list of all users. */
@@ -58,8 +69,26 @@ export type CreateUserRequest = {
   /** role for created user. */
   role?: string;
 };
+export type Inventory = {
+  /** inventory local id */
+  id: string;
+  /** inventory global id */
+  inventoryId: string;
+  categories: string[];
+  productCode: string;
+  productName: string;
+  remarks: string[];
+  remainingQuantity: number;
+  representProductName: string;
+  representProductCode: string;
+};
+export type GetInventoriesResponse = {
+  /** list of all inventories. */
+  inventories?: Inventory[];
+};
 export const {
   useGetHealthcheckQuery,
   useGetUsersQuery,
   usePostUsersMutation,
+  useGetInventoryByUserIdQuery,
 } = injectedRtkApi;

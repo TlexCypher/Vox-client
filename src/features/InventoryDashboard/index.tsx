@@ -16,7 +16,6 @@ const InventoryDashboard = ({ }: InventoryDashboardProps) => {
         isFetching,
         isLoading
     } = useGetUsersQuery()
-    { console.log(data) }
 
     if (isError || data.users === undefined) {
         return (
