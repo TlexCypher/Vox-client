@@ -11,6 +11,9 @@ services:
       - type: volume
         source: node-modules-volume
         target: /node/app/node_modules
+      - type: bind
+        source: .
+        target: /node/app
     env_file:
       ./.env
     command: sh -c "yarn dev"

@@ -71,20 +71,33 @@ components:
     HealthCheckResponse:
       type: object
       properties:
-        data:
+        message:
           type: string
+    User:
+      type: object
+      x-go-type: dto.User
+      properties:
+        role:
+          type: string
+          enum:
+            - admin
+            - operator
+          description: User's role
+        username:
+          type: string
+          description: User's name
+      required:
+        - username
+        - role
     GetAllUsersResponse:
       type: object
       properties:
-        data:
+        users:
           type: array
           items:
             type: object
-            x-go-type: entity.User
+            $ref: '#/components/schemas/User'
           description: list of all users.
-        message:
-          type: string
-          description: additional message for response.
     Error:
       type: object
       properties:
@@ -103,6 +116,6 @@ components:
     CreateUserResponse:
       type: object
       properties:
-        data:
-          type: object
+        userId:
+          type: string
           x-go-type: valueobject.UserId

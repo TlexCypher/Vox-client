@@ -33,20 +33,24 @@ export type PostUsersApiArg = {
   createUserRequest: CreateUserRequest;
 };
 export type HealthCheckResponse = {
-  data?: string;
+  message?: string;
+};
+export type User = {
+  /** User's role */
+  role: "admin" | "operator";
+  /** User's name */
+  username: string;
 };
 export type GetAllUsersResponse = {
   /** list of all users. */
-  data?: object[];
-  /** additional message for response. */
-  message?: string;
+  users?: User[];
 };
 export type Error = {
   /** error message. */
   message?: string;
 };
 export type CreateUserResponse = {
-  data?: object;
+  userId?: string;
 };
 export type CreateUserRequest = {
   /** name for created user. */

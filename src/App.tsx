@@ -1,9 +1,9 @@
-import Dashboard from "./features/Dashboard";
+import InventoryDashboard from "./features/InventoryDashboard";
 
 const App = () => {
     return (
         <>
-            <Dashboard />
+            <InventoryDashboard />
         </>
     )
 };
