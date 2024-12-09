@@ -6,7 +6,6 @@ interface InventoryTableProps {
 }
 
 const InventoryTable = ({ user }: InventoryTableProps) => {
-    { console.log(user) }
     return (
         <Table>
             <Table.Thead>
